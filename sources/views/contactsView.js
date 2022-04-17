@@ -85,18 +85,17 @@ export default class ContactsView extends JetView {
 
 	init(view) {
 		view.queryView("list").parse(contacts);
+		this.inputform = view.queryView("form");
 	}
 
 	saveForm() {
-		const form = this.$$(CONTACTS_FORM_ID);
-		if (!form.validate()) this.webix.message("Check the input fields for correct input");
+		if (!this.inputform.validate()) this.webix.message("Check the input fields for correct input");
 	}
 
 	clearForm() {
-		const form = this.$$(CONTACTS_FORM_ID);
 		webix.confirm("Are you sure you want to clean the form?").then(() => {
-			form.clear();
-			form.clearValidation();
+			this.inputform.clear();
+			this.inputform.clearValidation();
 		});
 	}
 }

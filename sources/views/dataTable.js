@@ -47,15 +47,16 @@ export default class DataTable extends JetView {
 	}
 
 	init(view) {
+		this.input = view.queryView("text");
 		this.table = view.queryView("datatable");
 		this.table.parse(this.data);
 	}
 
 	addItem() {
-		const value = this.$$(INPUT_NAME_ID).getValue();
+		const value = this.input.getValue();
 		if (value) {
 			this.table.add({Name: value, Icon: "user"});
-			this.$$(INPUT_NAME_ID).setValue("");
+			this.input.setValue("");
 		}
 	}
 
