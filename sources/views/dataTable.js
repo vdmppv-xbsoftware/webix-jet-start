@@ -46,9 +46,9 @@ export default class DataTable extends JetView {
 		};
 	}
 
-	init(view) {
-		this.input = view.queryView("text");
-		this.table = view.queryView("datatable");
+	init() {
+		this.input = this.$$(INPUT_NAME_ID);
+		this.table = this.$$(DATATABLE_ID);
 		this.table.parse(this.data);
 	}
 

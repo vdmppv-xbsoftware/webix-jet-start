@@ -83,9 +83,9 @@ export default class ContactsView extends JetView {
 		};
 	}
 
-	init(view) {
-		view.queryView("list").parse(contacts);
-		this.inputform = view.queryView("form");
+	init() {
+		this.$$(CONTACTS_LIST_ID).parse(contacts);
+		this.inputform = this.$$(CONTACTS_FORM_ID);
 	}
 
 	saveForm() {
