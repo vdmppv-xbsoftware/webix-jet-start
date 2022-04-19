@@ -56,12 +56,22 @@ export default class ContactsList extends JetView {
 		this.list = this.$$(CONTACTS_LIST_ID);
 		this.list.sync(contactsCollection);
 
+		this.on(this.app, "onClearContactsForm", () => {
+			this.list.unselectAll();
+			this.show("contactsView");
+		});
+
 		const selected = this.getParam("id") || contactsCollection.getFirstId();
 		this.setParam("id", selected, true);
-		this.list.attachEvent("onAfterSelect", (id) => {
+		this.on(this.list, "onAfterSelect", (id) => {
 			this.show(`contactsView?id=${id}`);
 		});
 
 		this.list.select(selected);
+	}
+
+	urlChange() {
+		const url = this.getParam("id");
+		if (!url) this.list.unselectAll();
 	}
 }

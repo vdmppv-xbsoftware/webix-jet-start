@@ -81,7 +81,7 @@ export default class ContactsForm extends JetView {
 			this.inputform.setValues(contactsCollection.getItem(contactId));
 		}
 		else {
-			this.inputform.setValues("");
+			this.inputform.clear();
 		}
 	}
 
@@ -106,6 +106,7 @@ export default class ContactsForm extends JetView {
 		}).then(() => {
 			this.inputform.clear();
 			this.inputform.clearValidation();
+			this.app.callEvent("onClearContactsForm");
 		});
 	}
 }
