@@ -12,18 +12,9 @@ export default class ContactsList extends JetView {
 			template: "Name: #Name#, Email: #Email#, Status: #Status#, Country: #Country# <span class='webix_icon wxi-trash'</span>",
 			select: true,
 			onClick: {
-				"wxi-trash": (e, id) => {
+				"wxi-trash": () => {
 					const selected = this.$$(CONTACTS_LIST_ID).getSelectedId();
 					contactsCollection.remove(selected);
-					if (selected == id) {
-						this.app.show("/top/contactsView");
-					}
-				}
-			},
-			on: {
-				onAfterSelect: () => {
-					const selected = this.$$(CONTACTS_LIST_ID).getSelectedId();
-					this.setUrl(selected);
 				}
 			}
 		};
@@ -52,20 +43,15 @@ export default class ContactsList extends JetView {
 	init() {
 		this.list = this.$$(CONTACTS_LIST_ID);
 		this.list.sync(contactsCollection);
-	}
 
-	urlChange() {
-		const id = this.getParam("id") || contactsCollection.getFirstId();
+		const selected = this.getParam("id") || contactsCollection.getFirstId();
 
-		if (id && contactsCollection.exists(id)) {
-			this.list.select(id);
-		}
-		else {
-			this.list.select(contactsCollection.getFirstId());
-		}
-	}
-
-	setUrl(selected) {
 		this.setParam("id", selected, true);
+
+		this.list.attachEvent("onAfterSelect", (id) => {
+			this.show(`contactsView?id=${id}`);
+		});
+
+		this.list.select(selected);
 	}
 }

@@ -29,17 +29,23 @@ export default class ContactsForm extends JetView {
 					invalidMessage: "Incorrect email address"
 				},
 				{
-					view: "text",
+					view: "combo",
 					name: "Status",
 					label: "Status",
-					value: "",
+					options: {
+						body: {template: "#Name#"},
+						data: statusesCollection
+					},
 					invalidMessage: "Incorrect status"
 				},
 				{
-					view: "text",
+					view: "combo",
 					name: "Country",
 					label: "Country",
-					value: "",
+					options: {
+						body: {template: "#Name#"},
+						data: countriesCollection
+					},
 					invalidMessage: "Incorrect country"
 				},
 				{
@@ -72,8 +78,7 @@ export default class ContactsForm extends JetView {
 		this.inputform = this.$$(CONTACTS_FORM_ID);
 	}
 
-	urlChange(view) {
-		console.log("kek");
+	urlChange() {
 		const contactsID = this.getParam("id");
 		if (contactsID) {
 			this.inputform.setValues(contactsCollection.getItem(contactsID));
