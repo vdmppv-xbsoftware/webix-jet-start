@@ -14,7 +14,11 @@ export default class ContactsList extends JetView {
 			type: {
 				css: "contactlist_item"
 			},
-			template: `${_("Name")}: #Name#, ${_("Email")}: #Email#, ${_("Status")}: #Status#, ${_("Country")}: #Country# <span class='webix_icon wxi-trash'</span>`,
+			template: `${_("Name")}: #Name#, 
+                ${_("Email")}: #Email#, 
+                ${_("Status")}: #Status#, 
+                ${_("Country")}: #Country# 
+                <span class='webix_icon wxi-trash'</span>`,
 			select: true,
 			onClick: {
 				"wxi-trash": (e, id) => {
@@ -53,9 +57,7 @@ export default class ContactsList extends JetView {
 		this.list.sync(contactsCollection);
 
 		const selected = this.getParam("id") || contactsCollection.getFirstId();
-
 		this.setParam("id", selected, true);
-
 		this.list.attachEvent("onAfterSelect", (id) => {
 			this.show(`contactsView?id=${id}`);
 		});

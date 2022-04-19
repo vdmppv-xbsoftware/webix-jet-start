@@ -76,9 +76,9 @@ export default class ContactsForm extends JetView {
 	}
 
 	urlChange() {
-		const contactsID = this.getParam("id");
-		if (contactsID) {
-			this.inputform.setValues(contactsCollection.getItem(contactsID));
+		const contactId = this.getParam("id");
+		if (contactId) {
+			this.inputform.setValues(contactsCollection.getItem(contactId));
 		}
 	}
 
@@ -87,13 +87,20 @@ export default class ContactsForm extends JetView {
 		if (this.inputform.validate()) {
 			const values = this.inputform.getValues();
 			contactsCollection.updateItem(values.id, values);
-			this.webix.message({text: _("Contact was successfully saved")});
+			this.webix.message(
+				{
+					text: _("Contact was successfully saved")
+				}
+			);
 		}
 	}
 
 	clearForm() {
 		const _ = this.app.getService("locale")._;
-		webix.confirm({text: _("Are you sure you want to clean the form?"), cancel: _("Cancel")}).then(() => {
+		webix.confirm({
+			text: _("Are you sure you want to clean the form?"),
+			cancel: _("Cancel")
+		}).then(() => {
 			this.inputform.clear();
 			this.inputform.clearValidation();
 		});
