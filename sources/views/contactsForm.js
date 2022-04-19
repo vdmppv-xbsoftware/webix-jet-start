@@ -80,6 +80,9 @@ export default class ContactsForm extends JetView {
 		if (contactId) {
 			this.inputform.setValues(contactsCollection.getItem(contactId));
 		}
+		else {
+			this.inputform.setValues("");
+		}
 	}
 
 	saveForm() {
