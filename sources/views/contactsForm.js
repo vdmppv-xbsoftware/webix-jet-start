@@ -3,6 +3,7 @@ import {JetView} from "webix-jet";
 import {contactsCollection, statusesCollection, countriesCollection} from "../models/dataCollection";
 
 const CONTACTS_FORM_ID = "contacts_form";
+const _ = this.app.getService("locale")._;
 
 export default class ContactsForm extends JetView {
 	config() {
@@ -11,54 +12,52 @@ export default class ContactsForm extends JetView {
 			localId: CONTACTS_FORM_ID,
 			rows: [
 				{
-					template: "EDIT CONTACTS",
+					template: _("EDIT CONTACTS"),
 					type: "section"
 				},
 				{
 					view: "text",
 					name: "Name",
-					label: "Name",
+					label: _("Name"),
 					value: "",
-					invalidMessage: "Name should not be empty"
+					invalidMessage: _("Name should not be empty")
 				},
 				{
 					view: "text",
 					name: "Email",
-					label: "Email",
+					label: _("Email"),
 					value: "",
-					invalidMessage: "Incorrect email address"
+					invalidMessage: _("Incorrect email address")
 				},
 				{
 					view: "combo",
 					name: "Status",
-					label: "Status",
+					label: _("Status"),
 					options: {
 						body: {template: "#Name#"},
 						data: statusesCollection
-					},
-					invalidMessage: "Incorrect status"
+					}
 				},
 				{
 					view: "combo",
 					name: "Country",
-					label: "Country",
+					label: _("Country"),
 					options: {
 						body: {template: "#Name#"},
 						data: countriesCollection
-					},
-					invalidMessage: "Incorrect country"
+					}
 				},
 				{
 					cols: [
 						{
 							view: "button",
-							value: "Save",
+							value: _("Save"),
 							css: "webix_primary",
 							click: () => this.saveForm()
 						},
 						{
 							view: "button",
-							value: "Clear",
+							value: _("Clear"),
 							click: () => this.clearForm()
 						}
 					]
@@ -67,9 +66,7 @@ export default class ContactsForm extends JetView {
 			],
 			rules: {
 				Name: this.webix.rules.isNotEmpty,
-				Email: this.webix.rules.isEmail,
-				Status: value => (value >= 1 && value <= 2),
-				Country: this.webix.rules.isNotEmpty
+				Email: this.webix.rules.isEmail
 			}
 		};
 	}
@@ -89,12 +86,12 @@ export default class ContactsForm extends JetView {
 		if (this.inputform.validate()) {
 			const values = this.inputform.getValues();
 			contactsCollection.updateItem(values.id, values);
-			this.webix.message("Contact was successfully saved");
+			this.webix.message({text: _("Contact was successfully saved")});
 		}
 	}
 
 	clearForm() {
-		webix.confirm("Are you sure you want to clean the form?").then(() => {
+		webix.confirm({text: _("Are you sure you want to clean the form?")}).then(() => {
 			this.inputform.clear();
 			this.inputform.clearValidation();
 		});

@@ -6,10 +6,15 @@ const CONTACTS_LIST_ID = "contacts_list";
 
 export default class ContactsList extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
+
 		const contactsList = {
 			view: "list",
 			localId: CONTACTS_LIST_ID,
-			template: "Name: #Name#, Email: #Email#, Status: #Status#, Country: #Country# <span class='webix_icon wxi-trash'</span>",
+			type: {
+				css: "contactlist_item"
+			},
+			template: `${_("Name")}: #Name#, ${_("Email")}: #Email#, ${_("Status")}: #Status#, ${_("Country")}: #Country# <span class='webix_icon wxi-trash'</span>`,
 			select: true,
 			onClick: {
 				"wxi-trash": () => {
@@ -21,7 +26,7 @@ export default class ContactsList extends JetView {
 
 		const addButton = {
 			view: "button",
-			value: "Add item",
+			value: _("Add item"),
 			css: "webix_primary",
 			click: () => {
 				const list = this.$$(CONTACTS_LIST_ID);

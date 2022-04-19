@@ -10,6 +10,8 @@ export default class DataTable extends JetView {
 	}
 
 	config() {
+		const _ = this.app.getService("locale")._;
+
 		return {
 			rows: [
 				{
@@ -21,14 +23,14 @@ export default class DataTable extends JetView {
 						},
 						{
 							view: "button",
-							value: "Add",
+							value: _("Add"),
 							css: "webix_primary",
 							gravity: 0.3,
 							click: () => this.addItem()
 						},
 						{
 							view: "button",
-							value: "Delete",
+							value: _("Delete"),
 							css: "webix_primary",
 							gravity: 0.3,
 							click: () => this.deleteItem()
