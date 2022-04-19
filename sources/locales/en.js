@@ -6,6 +6,7 @@ export default {
 	"Add item": "Add item",
 	Save: "Save",
 	Delete: "Delete",
+	Cancel: "Cancel",
 	"EDIT CONTACTS": "EDIT CONTACTS",
 	Clear: "Clear",
 	Countries: "Countries",

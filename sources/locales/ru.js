@@ -6,6 +6,7 @@ export default {
 	"Add item": "Добавить",
 	Save: "Сохранить",
 	Delete: "Удалить",
+	Cancel: "Отменить",
 	"EDIT CONTACTS": "РЕДАКТИРОВАТЬ КОНТАКТЫ",
 	Clear: "Очистить",
 	Countries: "Страны",

@@ -17,9 +17,12 @@ export default class ContactsList extends JetView {
 			template: `${_("Name")}: #Name#, ${_("Email")}: #Email#, ${_("Status")}: #Status#, ${_("Country")}: #Country# <span class='webix_icon wxi-trash'</span>`,
 			select: true,
 			onClick: {
-				"wxi-trash": () => {
+				"wxi-trash": (e, id) => {
 					const selected = this.$$(CONTACTS_LIST_ID).getSelectedId();
-					contactsCollection.remove(selected);
+					if (selected && selected === id) {
+						contactsCollection.remove(selected);
+						this.show("contactsView");
+					}
 				}
 			}
 		};

@@ -3,10 +3,10 @@ import {JetView} from "webix-jet";
 import {contactsCollection, statusesCollection, countriesCollection} from "../models/dataCollection";
 
 const CONTACTS_FORM_ID = "contacts_form";
-const _ = this.app.getService("locale")._;
 
 export default class ContactsForm extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		return {
 			view: "form",
 			localId: CONTACTS_FORM_ID,
@@ -83,6 +83,7 @@ export default class ContactsForm extends JetView {
 	}
 
 	saveForm() {
+		const _ = this.app.getService("locale")._;
 		if (this.inputform.validate()) {
 			const values = this.inputform.getValues();
 			contactsCollection.updateItem(values.id, values);
@@ -91,7 +92,8 @@ export default class ContactsForm extends JetView {
 	}
 
 	clearForm() {
-		webix.confirm({text: _("Are you sure you want to clean the form?")}).then(() => {
+		const _ = this.app.getService("locale")._;
+		webix.confirm({text: _("Are you sure you want to clean the form?"), cancel: _("Cancel")}).then(() => {
 			this.inputform.clear();
 			this.inputform.clearValidation();
 		});
