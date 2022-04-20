@@ -41,8 +41,8 @@ export default class ContactsList extends JetView {
 					contactsCollection.add({
 						Name: "Ivan Ivanov",
 						Email: "ivanov@gmail.com",
-						Status: statusesCollection.data.order[0],
-						Country: countriesCollection.data.order[0]
+						Status: statusesCollection.data.order[0] || "",
+						Country: countriesCollection.data.order[0] || ""
 					});
 				}).then(() => list.select(list.getLastId()));
 			}
