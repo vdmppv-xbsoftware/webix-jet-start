@@ -1,7 +1,6 @@
 import {JetView} from "webix-jet";
 
-import countries from "../models/countries";
-import statuses from "../models/statuses";
+import {countriesCollection, statusesCollection} from "../models/dataCollection";
 import DataTable from "./dataTable";
 
 export default class DataView extends JetView {
@@ -12,11 +11,11 @@ export default class DataView extends JetView {
 			cells: [
 				{
 					header: _("Countries"),
-					body: new DataTable(this.app, statuses)
+					body: new DataTable(this.app, countriesCollection)
 				},
 				{
 					header: _("Statuses"),
-					body: new DataTable(this.app, countries)
+					body: new DataTable(this.app, statusesCollection)
 				}
 			]
 		};

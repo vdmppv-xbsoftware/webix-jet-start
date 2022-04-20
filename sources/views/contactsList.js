@@ -1,6 +1,6 @@
 import {JetView} from "webix-jet";
 
-import {contactsCollection} from "../models/dataCollection";
+import {contactsCollection, statusesCollection, countriesCollection} from "../models/dataCollection";
 
 const CONTACTS_LIST_ID = "contacts_list";
 
@@ -37,13 +37,14 @@ export default class ContactsList extends JetView {
 			css: "webix_primary",
 			click: () => {
 				const list = this.$$(CONTACTS_LIST_ID);
-				contactsCollection.add({
-					Name: "Ivan Ivanov",
-					Email: "ivanov@gmail.com",
-					Status: 1,
-					Country: 2
-				});
-				list.select(list.getLastId());
+				contactsCollection.waitSave(() => {
+					contactsCollection.add({
+						Name: "Ivan Ivanov",
+						Email: "ivanov@gmail.com",
+						Status: statusesCollection.data.order[0] || "",
+						Country: countriesCollection.data.order[0] || ""
+					});
+				}).then(() => list.select(list.getLastId()));
 			}
 		};
 
@@ -61,13 +62,15 @@ export default class ContactsList extends JetView {
 			this.show("contactsView");
 		});
 
-		const selected = this.getParam("id") || contactsCollection.getFirstId();
-		this.setParam("id", selected, true);
-		this.on(this.list, "onAfterSelect", (id) => {
-			this.show(`contactsView?id=${id}`);
-		});
+		contactsCollection.waitData.then(() => {
+			const selected = this.getParam("id") || contactsCollection.getFirstId();
+			this.setParam("id", selected, true);
+			this.on(this.list, "onAfterSelect", (id) => {
+				this.show(`contactsView?id=${id}`);
+			});
 
-		this.list.select(selected);
+			this.list.select(selected);
+		});
 	}
 
 	urlChange() {
