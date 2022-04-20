@@ -6,15 +6,16 @@ import DataTable from "./dataTable";
 
 export default class DataView extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		return {
 			view: "tabview",
 			cells: [
 				{
-					header: "Countries",
+					header: _("Countries"),
 					body: new DataTable(this.app, statuses)
 				},
 				{
-					header: "Statuses",
+					header: _("Statuses"),
 					body: new DataTable(this.app, countries)
 				}
 			]
